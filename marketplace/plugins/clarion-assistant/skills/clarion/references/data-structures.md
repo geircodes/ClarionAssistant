@@ -118,8 +118,6 @@ RANDOM(low, high)               ! Random number in range
 ```clarion
 ERRORCODE()                     ! Last error code (0 = success)
 ERROR()                         ! Last error message
-RECORDS(queue_or_file)          ! Record count
-POINTER(queue_or_file)          ! Current position
 ADDRESS(variable)               ! Memory address
 WHAT(group, n)                  ! Field reference by index
 WHO(group, n)                   ! Field name by index
@@ -128,7 +126,7 @@ CLOCK()                         ! Current time (centiseconds since midnight)
 TODAY()                         ! Current date (Clarion standard date)
 ```
 
-### File/Queue Functions
+### File Functions
 ```clarion
 SET(file)                       ! Set file to beginning
 SET(key)                        ! Set to beginning of key order

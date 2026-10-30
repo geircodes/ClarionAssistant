@@ -29,7 +29,6 @@ Read this before writing or reviewing non-trivial Clarion code. The last section
 ## Layout, strings and dates
 
 - **Data declarations start in column 1.** `  MyVar LONG` (indented) → `Illegal data type: MYVAR`. Only `CODE` and executable statements are indented.
-- **LF-only source files do not compile** (see the File Conventions note in `SKILL.md`): `Illegal character` reported on line 1, and on larger files `Expected: <ID> <LINEBREAK> ; ...` as well.
 - **Trailing blanks are ignored in comparisons.** A `STRING(10)` holding `'Hello'` *equals* `'Hello'` (run-tested), and `CLIP(S1) = 'Hello'` and `S1 = S2` are true as well. `CLIP()` matters when *concatenating* (`CLIP(First) & ' ' & CLIP(Last)`), not for comparing to a literal.
 - **`DATE`/`TIME` are real types**: `D DATE`, `T TIME`, `D = TODAY()`, `T = CLOCK()`, `S = FORMAT(D,@D17)`, `D = DEFORMAT(S,@D17)` all compile.
 - `PUSHERRORS` / `POPERRORS` exist and compile.
@@ -69,5 +68,5 @@ These appear in other Clarion AI-guidance documents. Each was tested and does **
 | "A QUEUE cannot be passed by value." | `PROCEDURE(QUEUE pQ)` compiles. (`*QUEUE` is still preferable — no copy.) |
 | "`KEY`, `FILE`, `RECORD`, `WINDOW`, `QUEUE`, `GROUP`, `INDEX` cannot be parameter names." | Each compiles as a `STRING` parameter name. (Real reserved words such as `ACCEPT`, `CASE`, `CODE`, `SELF`, `PARENT` remain off-limits.) |
 | "`STRING(10)` = `'Hello'` is false because of padding." | It is true (trailing blanks ignored). |
-| "LF-only files report `Expected: PROGRAM PRAGMA`." | The real signature is in the Layout section above. |
+| "LF-only files report `Expected: PROGRAM PRAGMA`." | The real signature is in SKILL.md's File Conventions. |
 | "A WINDOW needs two ENDs: one for the control list, one for the WINDOW." | The second END does not compile (see the Layout section). Examples that seem to show it end with an OLE control: that END closes the OLE. |

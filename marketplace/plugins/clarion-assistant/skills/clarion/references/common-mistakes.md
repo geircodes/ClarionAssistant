@@ -1,6 +1,6 @@
 # Common Clarion Mistakes to Avoid
 
-Full catalog of wrong/right patterns. The most frequent ones are summarized in SKILL.md; this is the complete list with examples.
+Wrong-vs-right examples. The rules are summarized in SKILL.md; rules with their exact compiler messages (DECIMAL, `,PROC`, POWER, MODULE, MEMBER, EXTERNAL globals, Construct) are in ai-pitfalls.md and are not repeated here.
 
 ## Strings
 ❌ Using double quotes: `Message = "Hello"`
@@ -197,36 +197,6 @@ MyClass.Init    PROCEDURE         ! CORRECT
   CODE
 ```
 
-## DECIMAL Parameters and Returns
-❌ `MyProc PROCEDURE(DECIMAL pV)` → `Invalid data type for value parameter`
-❌ `MyProc PROCEDURE(),DECIMAL` → `Illegal return type or attribute`
-✅ `MyProc PROCEDURE(*DECIMAL pV),REAL` — by reference, and return REAL/LONG (assign to the DECIMAL at the call site).
-
-## Indented Data Declarations
-❌ `  MyVar LONG` (indented) → `Illegal data type: MYVAR`
-✅ `MyVar LONG` in column 1; only `CODE` and executable statements are indented.
-
-## MODULE Placement and Naming
-❌ `MODULE('M1')` outside a `MAP` → `Expected: <ID> <LINEBREAK> ; CODE INCLUDE OMIT ...`
-✅ Put every `MODULE` inside `MAP ... END`, and make its name match the .clw that defines the procedure (a mismatch gives `Procedure doesn't belong to module`).
-
-## Returning Procedures Called as Statements
-❌ `GetVal('a')` as a statement when `GetVal PROCEDURE(STRING),LONG` has no `,PROC`.
-This compiles, but with the warning `Calling function as procedure`.
-✅ Add `,PROC` to the prototype, or assign the result. Assign `GETINI(...)`'s result (it has no `,PROC`).
-
-## No POWER()
-❌ `D = POWER(2, n)` → `Unknown function label`
-✅ `D = (2) ^ (n)`
-
-## Redeclaring Globals in a MEMBER
-❌ `Flag BYTE,EXTERNAL` in a MEMBER file for a PROGRAM global → `Label duplicated` warning, then `Unresolved External` at link time.
-✅ Just use `Flag` — MEMBER modules see the PROGRAM's global data.
-
-## Class Construct
-❌ `Construct PROCEDURE(LONG p)` or `Construct PROCEDURE,VIRTUAL` → `Illegal return type or attribute`
-✅ `Construct`/`Destruct` take no parameters and are not VIRTUAL.
-
 ## COM/OLE Property Syntax
 ❌ Using PROP:OLE assignment for methods:
 ```clarion
@@ -270,11 +240,6 @@ MyObj &= NEW MyClass
 MyObj.DoWork()
 DISPOSE(MyObj)                    ! CORRECT
 ```
-✅ DISPOSE sets the reference it is given to NULL — no `&= NULL` afterwards, and disposing it again is a no-op:
-```clarion
-DISPOSE(MyObj)                    ! MyObj is now NULL
-DISPOSE(MyObj)                    ! Does nothing
-```
 ❌ Using another reference to a disposed object — only the variable passed to DISPOSE is cleared:
 ```clarion
 Alias &= MyObj
@@ -284,14 +249,3 @@ IF NOT Alias &= NULL              ! True — Alias still points to freed memory
 END
 ```
 ✅ When several classes or queue records reference one object, only its owner disposes it; the others drop their copy with `&= NULL`.
-
-## MEMBER Without the Parent
-❌ Bare `MEMBER` in a module implementing procedures prototyped in the parent program's MAP:
-```clarion
-                     MEMBER                  ! WRONG here — "No matching prototype available"
-```
-✅ Name the parent:
-```clarion
-                     MEMBER('MyApp.clw')
-```
-(Bare `MEMBER` remains correct in a class-implementation .clw.)

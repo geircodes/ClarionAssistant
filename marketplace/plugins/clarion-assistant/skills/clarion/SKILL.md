@@ -1,7 +1,7 @@
 ---
 name: clarion
 # prettier-ignore
-description: Clarion language programming reference with syntax rules, data types, control structures, Windows API integration patterns, and template-authoring gotchas (#AT, #IF, OMITTED scope). Auto-applies when working with Clarion source code or .tpl/.tpw template files. Uses parallel operations where applicable.
+description: Clarion language reference - critical syntax rules, compile-verified pitfalls, data structures, classes, windows and events, COM controls from Clarion, and template-authoring gotchas (#AT, #IF, OMITTED scope). Auto-applies when working with Clarion source code or .tpl/.tpw template files.
 version: 1.0.0
 ---
 
@@ -47,17 +47,17 @@ You are an expert Clarion language programmer. This file holds the most critical
 
 ## When Generating Clarion Examples
 
-Use realistic Clarion-convention names, show complete context (declare all variables), align property assignments, comment with `!`, and follow proper indentation. Full guidelines in references/syntax-basics.md.
+Use realistic Clarion-convention names, show complete context (declare all variables), align property assignments, comment with `!`, and follow proper indentation.
 
 ## References
 
 All paths are relative to this skill's directory. Read the file whose topic matches the task before writing code in that area:
 
-- **references/syntax-basics.md** — Core syntax (types, procedures, IF/CASE/LOOP, strings), full reserved-word lists, .clw/.inc file structure, label/termination rules, parameter passing, ROUTINE/DO, INCLUDE/OMIT/COMPILE, naming conventions, example-generation guidelines. Read for any general Clarion source authoring.
-- **references/data-structures.md** — FILE/RECORD/KEY declarations, OPEN/CLOSE with error checks, QUEUE operations (ADD/GET/PUT/DELETE/SORT/FREE), GROUP/LIKE, and the built-in function catalog (string, numeric, system, file/queue). Read when working with files, queues, groups, or built-in functions.
-- **references/classes.md** — CLASS declaration (.inc) and implementation (.clw), inheritance/VIRTUAL/PARENT, reference variables, NEW/DISPOSE. Read when writing or deriving classes.
-- **references/windows-events.md** — Full ACCEPT loop pattern, EVENT: constants, PROP:xxx property syntax, WINDOW definitions (END rules, hidden OLE controls). Read when building windows or handling UI events.
-- **references/com-controls.md** — Using COM/OLE from Clarion (PROP:Create, property/method calls, OCXREGISTEREVENTPROC event handling) AND building .NET COM controls for Clarion (RegFree COM only, UserControl inheritance requirement, interfaces/GUIDs/csproj, checklist, complete working example). Read for anything COM-related.
-- **references/templates.md** — Template authoring gotchas in depth: #AT/#IF nesting, OMITTED() scope trap with the %BeforeWindowManagerRun fix, embeds that silently don't work (%LocalProcedureSetup, %ProcedureSetup). Read before writing/editing .tpl/.tpw files.
-- **references/ai-pitfalls.md** — Compile-verified (Clarion 12) rules: DECIMAL, `,PROC`/`GETINI`, MAP/MODULE/MEMBER scope, column-1 and LF errors, string comparison, OMIT terminator — plus a list of plausible-sounding rules that are false. Read before writing or reviewing non-trivial code.
-- **references/common-mistakes.md** — Full wrong-vs-right catalog (strings, periods, labels, MEMBER order, END counts, &=, queue CLEAR, parameter markers, ACCEPT vs LOOP, ROUTINE calls, class prefixes, RETURN paths, NEW/DISPOSE). Read when reviewing or debugging Clarion code.
+- **references/syntax-basics.md** — Data types, procedure and control-structure shapes, reserved-word lists, .clw/.inc layout, parameters, ROUTINE, INCLUDE/OMIT/COMPILE, naming. Read for general source authoring.
+- **references/data-structures.md** — FILE/RECORD/KEY, OPEN/CLOSE, QUEUE operations, GROUP/LIKE, built-in functions. Read when working with files, queues, groups or built-ins.
+- **references/classes.md** — CLASS declaration and implementation, inheritance, VIRTUAL/PARENT, reference variables. Read when writing or deriving classes.
+- **references/windows-events.md** — ACCEPT loop, EVENT: constants, PROP: syntax, WINDOW definitions and their END rules. Read when building windows or handling events.
+- **references/com-controls.md** — Using COM/OLE controls from Clarion: PROP:Create, properties, methods, OCXREGISTEREVENTPROC. Building a .NET COM control is the clarioncom-control skill.
+- **references/templates.md** — #AT/#IF nesting, the OMITTED() scope trap, embeds that silently do nothing. Read before writing or editing .tpl/.tpw files.
+- **references/ai-pitfalls.md** — Compile-verified rules with the exact compiler messages, plus plausible-sounding rules that are false. Read before writing or reviewing non-trivial code.
+- **references/common-mistakes.md** — Wrong-vs-right examples for the rules above. Read when reviewing or debugging Clarion code.

@@ -4,13 +4,12 @@ ACCEPT loop event processing, EVENT constants, PROP:xxx property syntax, and WIN
 
 ## ACCEPT Loop (Event Processing)
 
-The ACCEPT loop is the core event processing structure for windows:
 ```clarion
   OPEN(Window)
   ACCEPT
     CASE EVENT()
     OF EVENT:OpenWindow
-      ! Window just opened — initialize controls
+      ! Initialize controls
     OF EVENT:Accepted
       CASE FIELD()
       OF ?ButtonSave
@@ -25,9 +24,6 @@ The ACCEPT loop is the core event processing structure for windows:
         ! List selection changed
       END
     OF EVENT:CloseWindow
-      IF SELF.Request = InsertRecord OR SELF.Request = ChangeRecord
-        ! Prompt to save changes
-      END
       BREAK
     END
   END
@@ -87,20 +83,3 @@ Window    WINDOW('Window Title'),AT(,,343,131),FONT('Segoe UI',9),CENTER,SYSTEM
             END                                ! The OLE control takes its own END
           END                                  ! Closes the WINDOW
 ```
-
-### Accept Loop Pattern
-```clarion
-LOOP
-  CASE ACCEPTED()
-  OF ?ButtonID
-    ! Button was clicked
-  END
-
-  CASE EVENT()
-  OF EVENT:CloseWindow
-    BREAK
-  END
-END
-```
-
-**Note:** For window event processing, prefer the ACCEPT structure (above) over a plain LOOP with ACCEPTED() — the LOOP/ACCEPTED() form is an old/simplified pattern.
