@@ -23,7 +23,7 @@ Common types:
 - `LONG` - 32-bit signed integer
 - `SHORT` - 16-bit signed integer
 - `BYTE` - 8-bit unsigned integer
-- `REAL` - 4-byte floating point
+- `REAL` - 8-byte floating point (`SREAL` is 4-byte)
 - `DECIMAL(digits,decimals)` - Decimal number
 
 ### Procedures

@@ -85,18 +85,18 @@ IF condition
 END
 ```
 
-❌ Single END for WINDOW:
+❌ A second END after a WINDOW's controls (`Expected: <ID> <LINEBREAK> ; CODE INCLUDE OMIT ...` at the extra END):
 ```clarion
 Window    WINDOW('Title'),AT(,,400,300)
             BUTTON('Click'),USE(?Button1)
-          END                     ! WRONG — only one END
+            END                   ! This END already closes the WINDOW
+          END                     ! WRONG — does not compile
 ```
-✅ Two ENDs — first closes controls, second closes window:
+✅ One END closes the WINDOW; container controls (SHEET, TAB, OPTION, GROUP, OLE, MENUBAR, TOOLBAR) take their own:
 ```clarion
 Window    WINDOW('Title'),AT(,,400,300)
             BUTTON('Click'),USE(?Button1)
-            END                   ! Closes control list
-          END                     ! Closes WINDOW structure
+          END
 ```
 
 ## Reference vs Assignment

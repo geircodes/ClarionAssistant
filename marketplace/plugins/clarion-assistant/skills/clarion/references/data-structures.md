@@ -96,7 +96,7 @@ LEFT(string)                    ! Left-justify (remove leading spaces)
 RIGHT(string)                   ! Right-justify
 UPPER(string)                   ! Uppercase
 LOWER(string)                   ! Lowercase
-LEN(string)                     ! Length (excluding trailing spaces)
+LEN(string)                     ! Length including trailing spaces; LEN(CLIP(s)) without
 SIZE(variable)                  ! Size in bytes
 INSTRING(find, source, start, count)  ! Find substring (returns position, 0 if not found)
 SUB(string, start, length)      ! Substring
