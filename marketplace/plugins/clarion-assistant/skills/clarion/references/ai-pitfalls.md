@@ -34,6 +34,13 @@ Read this before writing or reviewing non-trivial Clarion code. The last section
 - **`DATE`/`TIME` are real types**: `D DATE`, `T TIME`, `D = TODAY()`, `T = CLOCK()`, `S = FORMAT(D,@D17)`, `D = DEFORMAT(S,@D17)` all compile.
 - `PUSHERRORS` / `POPERRORS` exist and compile.
 
+## References and DISPOSE
+
+Run-tested on Clarion 12.0.14258 and 11.1.13855 (NEW, DISPOSE, then `IF Ref &= NULL`):
+
+- **`DISPOSE(Ref)` sets `Ref` to NULL** — for a local `&MyClass`, a class member reference (`DISPOSE(Holder.Ref)`) and a `&STRING`. A second `DISPOSE(Ref)` does nothing, and `Ref &= NULL` after DISPOSE is redundant.
+- **Only the variable passed to DISPOSE is cleared.** After `Alias &= Ref` and `DISPOSE(Ref)`, `Alias &= NULL` is false: `Alias` still points to the freed object. Code that keeps a second reference to a shared object (a cache, a queue record, another class) must not DISPOSE it unless it owns the object, and must not use it after the owner has.
+
 ## OMIT
 
 `OMIT('token')` is closed by the **first occurrence of that exact text anywhere in the source — including inside a comment.** `!` and `!!` are both ordinary comments, so a comment line containing the token closes the block:

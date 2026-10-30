@@ -270,6 +270,20 @@ MyObj &= NEW MyClass
 MyObj.DoWork()
 DISPOSE(MyObj)                    ! CORRECT
 ```
+✅ DISPOSE sets the reference it is given to NULL — no `&= NULL` afterwards, and disposing it again is a no-op:
+```clarion
+DISPOSE(MyObj)                    ! MyObj is now NULL
+DISPOSE(MyObj)                    ! Does nothing
+```
+❌ Using another reference to a disposed object — only the variable passed to DISPOSE is cleared:
+```clarion
+Alias &= MyObj
+DISPOSE(MyObj)                    ! MyObj is NULL, Alias is not
+IF NOT Alias &= NULL              ! True — Alias still points to freed memory
+  Alias.DoWork()                  ! WRONG — use after free
+END
+```
+✅ When several classes or queue records reference one object, only its owner disposes it; the others drop their copy with `&= NULL`.
 
 ## MEMBER Without the Parent
 ❌ Bare `MEMBER` in a module implementing procedures prototyped in the parent program's MAP:
